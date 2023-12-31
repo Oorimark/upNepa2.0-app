@@ -90,11 +90,12 @@ export const HomeScreenStyles = StyleSheet.create({
     backgroundColor: pColor10,
     padding: 18,
     borderRadius: 20,
+    rowGap: 20,
   },
   ParameterDisplayLabelStyle: {
     fontFamily: 'Montserrat-SemiBold',
     color: sColor60,
-    fontSize: 11,
+    fontSize: 12,
   },
   ParameterDisplayBoxContainer: {
     width: '100%',
@@ -122,5 +123,50 @@ export const HomeScreenStyles = StyleSheet.create({
   ParameterDisplayBoxTextStyle: {
     fontFamily: 'Montserrat-Black',
     fontSize: 30,
+  },
+  RecentLogsSectionContainer: {
+    rowGap: 15,
+  },
+  RecentLogsSectionHeaderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  RecentLogsSectionHeaderLabelStyle: {
+    fontFamily: 'Montserrat-SemiBold',
+    color: sColor60,
+    fontSize: 12,
+  },
+  RecentLogsSectionBoxContainer: {
+    backgroundColor: '#B4B4B4',
+    padding: 17,
+    borderRadius: 20,
+  },
+  RecentLogsSectionBoxStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 15,
+    borderBottomWidth: 0.2,
+    borderBottomColor: pColor10,
+  },
+  RecentLogsSectionBoxImageStyle: {
+    width: 30,
+    height: 30,
+    transform: [{scale: 0.6}],
+  },
+  RecentLogsSectionBoxStyleSection: {
+    flexDirection: 'row',
+    columnGap: 11,
+    alignItems: 'center',
+  },
+  RecentLogsSectionBoxDurationTextStyle: {
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 12,
+    color: pColor10,
+  },
+  RecentLogsSectionBoxLogTextStyle: {
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 11,
+    color: pColor10,
   },
 });
