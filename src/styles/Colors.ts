@@ -1,3 +1,5 @@
-const color60 = '#FFF1E2';
-const color30 = '#FF8000';
-const color10 = '#FFFFFF';
+export const pColor60 = '#FFF1E2';
+export const pColor30 = '#FF8000';
+export const pColor10 = '#FFFFFF';
+
+export const sColor60 = '#000000';
