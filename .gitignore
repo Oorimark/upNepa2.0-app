@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # OSX
 #
 .DS_Store
@@ -65,7 +64,6 @@ yarn-error.log
 
 # testing
 /coverage
-=======
 # Logs
 logs
 *.log
@@ -196,4 +194,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
->>>>>>> b94f43793c3d5ba4abd211285bd3ffaf75d7ebaa
