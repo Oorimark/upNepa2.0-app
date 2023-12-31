@@ -4,9 +4,9 @@ import {BaseStyle} from '../Global';
 
 export const HomeScreenStyles = StyleSheet.create({
   container: {
-    paddingVertical: 40,
+    paddingVertical: 20,
     paddingHorizontal: 11,
-    rowGap: 20,
+    rowGap: 7,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -18,20 +18,22 @@ export const HomeScreenStyles = StyleSheet.create({
   },
   headerText: {
     fontFamily: 'Montserrat-SemiBold',
-    fontSize: 23,
+    fontSize: 21,
     color: sColor60,
   },
+
+  //   LIght Display Section Styles
   LightDisplaySectionContainer: {
     backgroundColor: pColor30,
-    height: 130,
+    height: 150,
     width: '100%',
     padding: 20,
-    borderRadius: 30,
+    borderRadius: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   LightDisplaySectionLightStatusContainer: {
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   LightDisplaySectionLightExistContainer: {
     flexDirection: 'row',
@@ -81,5 +83,44 @@ export const HomeScreenStyles = StyleSheet.create({
     fontFamily: 'Montserrat-ExtraBold',
     fontSize: 24,
     color: pColor10,
+  },
+
+  // Parameter Display Section && Recent Logs Section
+  ParameterDisplayParentStyle: {
+    backgroundColor: pColor10,
+    padding: 18,
+    borderRadius: 20,
+  },
+  ParameterDisplayLabelStyle: {
+    fontFamily: 'Montserrat-SemiBold',
+    color: sColor60,
+    fontSize: 11,
+  },
+  ParameterDisplayBoxContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    rowGap: 15,
+    columnGap: 15,
+    marginVertical: 15,
+  },
+  ParameterDisplayBoxStyle: {
+    backgroundColor: '#F3F3F3',
+    paddingVertical: 20,
+    paddingHorizontal: 27,
+    alignItems: 'center',
+    borderRadius: 12,
+    width: 150,
+  },
+  ParameterDisplayBoxLabel: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 10,
+    color: sColor60,
+  },
+  ParameterDisplayBoxTextStyle: {
+    fontFamily: 'Montserrat-Black',
+    fontSize: 30,
   },
 });

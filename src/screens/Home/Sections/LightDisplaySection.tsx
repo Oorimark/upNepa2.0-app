@@ -4,6 +4,7 @@ import {HomeScreenStyles} from '../../../styles/Screens/HomeStyles';
 export default function LightDisplaySection(): JSX.Element {
   return (
     <View style={HomeScreenStyles.LightDisplaySectionContainer}>
+      {/* Light Status Section */}
       <View style={HomeScreenStyles.LightDisplaySectionLightStatusContainer}>
         <View style={HomeScreenStyles.LightDisplaySectionLightExistContainer}>
           <Image source={require('../../../../assets/img/light.png')} />
@@ -34,6 +35,8 @@ export default function LightDisplaySection(): JSX.Element {
           </View>
         </View>
       </View>
+
+      {/* LIght Duration Section */}
       <View>
         <Text
           style={HomeScreenStyles.LightDisplaySectionLightDurationLabelStyle}>
