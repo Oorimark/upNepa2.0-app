@@ -1,11 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {pColor10, sColor60} from '../Colors';
+import {pColor10, pColor60, sColor60} from '../Colors';
 
 export const LogsScreenStyle = StyleSheet.create({
   container: {
     paddingVertical: 30,
     paddingHorizontal: 9,
     rowGap: 30,
+    backgroundColor: pColor60,
+    height: '100%',
   },
   headerContainer: {
     flexDirection: 'row',

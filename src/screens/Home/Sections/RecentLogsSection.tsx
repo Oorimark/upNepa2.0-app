@@ -1,8 +1,21 @@
 import {View, Text, Image} from 'react-native';
 import {HomeScreenStyles} from '../../../styles/Screens/HomeStyles';
 import {BaseStyle} from '../../../styles/Global';
+import {useEffect, useState} from 'react';
+import {IElectricalParameters} from '../../../types/types';
+import {Logger} from '../../../utils/utils';
 
-export default function RecentLogsSection(): JSX.Element {
+export default function RecentLogsSection(
+  props: IElectricalParameters,
+): JSX.Element {
+  const [logs, setLogs] = useState<any[]>([]);
+
+  useEffect(() => {
+    (async function () {
+      setLogs([...JSON.parse(await Logger.fetchLogs())]);
+    })();
+  }, [props.voltage]);
+
   return (
     <View style={HomeScreenStyles.RecentLogsSectionContainer}>
       {/* Section Header */}
@@ -15,7 +28,7 @@ export default function RecentLogsSection(): JSX.Element {
 
       {/* Logs Display */}
       <View style={HomeScreenStyles.RecentLogsSectionBoxContainer}>
-        {logData.map((log, index) => (
+        {logs.map((log, index) => (
           <View key={index} style={HomeScreenStyles.RecentLogsSectionBoxStyle}>
             <View style={HomeScreenStyles.RecentLogsSectionBoxStyleSection}>
               <Image
@@ -36,22 +49,3 @@ export default function RecentLogsSection(): JSX.Element {
     </View>
   );
 }
-
-const logData = [
-  {
-    restoredTime: '3:30PM',
-    seizedTime: '4:30PM',
-  },
-  {
-    restoredTime: '3:30PM',
-    seizedTime: '4:30PM',
-  },
-  {
-    restoredTime: '3:30PM',
-    seizedTime: '4:30PM',
-  },
-  {
-    restoredTime: '3:30PM',
-    seizedTime: '4:30PM',
-  },
-];

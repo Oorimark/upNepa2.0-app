@@ -12,3 +12,8 @@ export type SetElectricParametersAction = {
 export type IAppState = {
   electricalParameters: Record<string, unknown>;
 };
+
+export type ILog = {
+  time: Date;
+  timeDiff: number;
+};

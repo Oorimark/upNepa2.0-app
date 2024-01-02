@@ -10,59 +10,51 @@ import {useEffect, useState} from 'react';
 const LOWER_VOLTAGE_LIMIT = 170;
 const UPPER_VOLTAGE_LIMIT = 230;
 
-export default function LightDisplaySection(
-  props: IElectricalParameters,
-): JSX.Element {
-  let [timerMinute, setTimerMinute] = useState<number>(0);
-  let [timerHour, setTimerHour] = useState<number>(0);
+type IProps = {
+  electricalParameters: IElectricalParameters;
+  initialTime: Date | undefined;
+};
+
+export default function LightDisplaySection(props: IProps): JSX.Element {
+  const [timer, setTimer] = useState(0);
+  const [timerMinute, setTimerMinute] = useState<number>(0);
+  const [timerHour, setTimerHour] = useState<number>(0);
   const [lightExist, setLightExist] = useState<'light' | 'no-light'>('light');
   const [lightStatus, setLightStatus] = useState<'GOOD' | 'BAD'>('GOOD');
-  const [imagePath, setImagePath] = useState<string>('');
-
-  let [timer, setTimer] = useState(0);
-  const [timerRunning, setTimerRunning] = useState(true);
 
   useEffect(() => {
-    const {voltage} = props;
+    const {voltage} = props.electricalParameters;
     const t = voltage > 0 ? 'light' : 'no-light';
     setLightExist(t);
-    setImagePath(`../../../../assets/img/${t}.png`);
     setLightStatus(
       voltage > LOWER_VOLTAGE_LIMIT && voltage < UPPER_VOLTAGE_LIMIT
         ? 'GOOD'
         : 'BAD',
     );
-  }, [props.voltage]);
+  }, [props.electricalParameters]);
 
   // timer
   useEffect(() => {
     let interval: string | number | NodeJS.Timeout | undefined;
-    if (timerRunning) {
+    const initialTime = new Date();
+    if (initialTime) {
       interval = setInterval(() => {
-        setTimer(timer++);
+        const currentTime = new Date();
+        const timeDifference = currentTime.getTime() - initialTime.getTime();
+
+        const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+        const minutes = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60),
+        );
+
+        setTimer(seconds);
+        seconds >= 60 || setTimerMinute(minutes);
+        minutes >= 60 || setTimerHour(hours);
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [timerRunning]);
-
-  //timer watcher
-  useEffect(() => {
-    if (lightExist === 'no-light') {
-      setTimerRunning(true);
-      if (timer >= 60) {
-        setTimerRunning(false);
-        setTimerRunning(true);
-        setTimer(0);
-        setTimerMinute(timerMinute++);
-        if (timerMinute >= 60) {
-          setTimerRunning(false);
-          setTimerRunning(true);
-          setTimerMinute(0);
-          setTimerHour(timerHour++);
-        }
-      }
-    } else setTimerRunning(false);
-  }, [timer, props.voltage]);
+  }, [props.initialTime]);
 
   return (
     <View style={HomeScreenStyles.LightDisplaySectionContainer}>
