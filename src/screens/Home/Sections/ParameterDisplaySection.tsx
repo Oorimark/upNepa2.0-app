@@ -1,7 +1,10 @@
 import {View, Text} from 'react-native';
 import {HomeScreenStyles} from '../../../styles/Screens/HomeStyles';
+import {IElectricalParameters} from '../../../types/types';
 
-export default function ParameterDisplaySection(): JSX.Element {
+export default function ParameterDisplaySection(
+  props: IElectricalParameters,
+): JSX.Element {
   return (
     <View>
       {/* Section Label */}
@@ -17,20 +20,24 @@ export default function ParameterDisplaySection(): JSX.Element {
           <Text style={HomeScreenStyles.ParameterDisplayBoxLabel}>
             VOLTAGE (V)
           </Text>
-          <Text style={HomeScreenStyles.ParameterDisplayBoxTextStyle}>200</Text>
+          <Text style={HomeScreenStyles.ParameterDisplayBoxTextStyle}>
+            {props.voltage}
+          </Text>
         </View>
         <View style={HomeScreenStyles.ParameterDisplayBoxStyle}>
           <Text style={HomeScreenStyles.ParameterDisplayBoxLabel}>
             CURRENT (A)
           </Text>
-          <Text style={HomeScreenStyles.ParameterDisplayBoxTextStyle}>10</Text>
+          <Text style={HomeScreenStyles.ParameterDisplayBoxTextStyle}>
+            {props.current}
+          </Text>
         </View>
         <View style={HomeScreenStyles.ParameterDisplayBoxStyle}>
           <Text style={HomeScreenStyles.ParameterDisplayBoxLabel}>
             POWER (W)
           </Text>
           <Text style={HomeScreenStyles.ParameterDisplayBoxTextStyle}>
-            2000
+            {props.power}
           </Text>
         </View>
         <View style={HomeScreenStyles.ParameterDisplayBoxStyle}>

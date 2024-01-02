@@ -112,7 +112,7 @@ export const HomeScreenStyles = StyleSheet.create({
   },
   ParameterDisplayBoxStyle: {
     backgroundColor: '#F3F3F3',
-    paddingVertical: 20,
+    paddingVertical: 13,
     paddingHorizontal: 27,
     alignItems: 'center',
     borderRadius: 12,
@@ -125,7 +125,7 @@ export const HomeScreenStyles = StyleSheet.create({
   },
   ParameterDisplayBoxTextStyle: {
     fontFamily: 'Montserrat-Black',
-    fontSize: 30,
+    fontSize: 40,
   },
   RecentLogsSectionContainer: {
     rowGap: 15,

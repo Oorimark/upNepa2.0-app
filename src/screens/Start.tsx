@@ -4,6 +4,8 @@ import {BaseStyle} from '../styles/Global';
 import {pColor30} from '../styles/Colors';
 import {Checkbox} from 'react-native-ui-lib';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type RootStackParamList = {
   HomeNav: {};
@@ -19,6 +21,14 @@ export default function StartScreen({
 }: {
   navigation: HomeScreenNavigationProp;
 }): JSX.Element {
+  const [inputText, setInputText] = useState('');
+  const [toggledCheckbox, setToggledCheckbox] = useState(false);
+
+  const handleProceed = async () => {
+    toggledCheckbox && (await AsyncStorage.setItem('localAddress', inputText));
+    navigation.navigate({name: 'HomeNav', params: {}});
+  };
+
   return (
     <View style={StartScreenStyles.container}>
       {/* Screen Header Section */}
@@ -37,12 +47,13 @@ export default function StartScreen({
         <TextInput
           placeholder="IP Address"
           keyboardType="numeric"
+          onChangeText={text => setInputText(text)}
           style={StartScreenStyles.textInputStyle}
         />
         <View style={StartScreenStyles.checkBoxContainer}>
           <Checkbox
-            value={true}
-            onValueChange={(_: any) => console.log('Checked')}
+            value={toggledCheckbox}
+            onValueChange={_ => setToggledCheckbox(!toggledCheckbox)}
             borderRadius={20}
             size={20}
             color={pColor30}
@@ -52,9 +63,7 @@ export default function StartScreen({
       </View>
 
       {/* Proceed Button */}
-      <Pressable
-        style={StartScreenStyles.buttonStyle}
-        onPress={() => navigation.navigate({name: 'HomeNav', params: {}})}>
+      <Pressable style={StartScreenStyles.buttonStyle} onPress={handleProceed}>
         <Text style={StartScreenStyles.buttonTextStyle}>Proceed</Text>
       </Pressable>
     </View>

@@ -6,12 +6,12 @@ export const StartScreenStyles = StyleSheet.create({
   container: {
     paddingTop: 50,
     paddingHorizontal: 30,
-    rowGap: 30,
+    rowGap: 50,
     backgroundColor: pColor60,
     height: '100%',
   },
   headerContainer: {
-    rowGap: 12,
+    rowGap: 32,
   },
   headerTextContainer: {
     rowGap: 10,
