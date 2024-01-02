@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {pColor10, pColor30, sColor60} from '../Colors';
+import {pColor10, pColor30, pColor60, sColor60} from '../Colors';
 import {BaseStyle} from '../Global';
 
 export const HomeScreenStyles = StyleSheet.create({
@@ -7,6 +7,8 @@ export const HomeScreenStyles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 11,
     rowGap: 7,
+    backgroundColor: pColor60,
+    height: '100%',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -89,6 +91,7 @@ export const HomeScreenStyles = StyleSheet.create({
   ParameterDisplayParentStyle: {
     backgroundColor: pColor10,
     padding: 18,
+    paddingHorizontal: 12,
     borderRadius: 20,
     rowGap: 20,
   },
@@ -161,7 +164,7 @@ export const HomeScreenStyles = StyleSheet.create({
   },
   RecentLogsSectionBoxDurationTextStyle: {
     fontFamily: 'Montserrat-SemiBold',
-    fontSize: 12,
+    fontSize: 11,
     color: pColor10,
   },
   RecentLogsSectionBoxLogTextStyle: {

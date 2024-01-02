@@ -1,9 +1,24 @@
 import {Image, Pressable, Text, TextInput, View} from 'react-native';
 import {StartScreenStyles} from '../styles/Screens/StartStyles';
 import {BaseStyle} from '../styles/Global';
-import {CheckBox} from '@rneui/themed';
+import {pColor30} from '../styles/Colors';
+import {Checkbox} from 'react-native-ui-lib';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-export default function StartScreen(): JSX.Element {
+type RootStackParamList = {
+  HomeNav: {};
+};
+
+type HomeScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'HomeNav'
+>;
+
+export default function StartScreen({
+  navigation,
+}: {
+  navigation: HomeScreenNavigationProp;
+}): JSX.Element {
   return (
     <View style={StartScreenStyles.container}>
       {/* Screen Header Section */}
@@ -25,19 +40,21 @@ export default function StartScreen(): JSX.Element {
           style={StartScreenStyles.textInputStyle}
         />
         <View style={StartScreenStyles.checkBoxContainer}>
-          <CheckBox
-            checked={false}
-            disabled
-            iconType="material-community"
-            checkedIcon="checkbox-outline"
-            uncheckedIcon={'checkbox-blank-outline'}
+          <Checkbox
+            value={true}
+            onValueChange={(_: any) => console.log('Checked')}
+            borderRadius={20}
+            size={20}
+            color={pColor30}
           />
           <Text style={BaseStyle.defaultFont}>Remember IP Address</Text>
         </View>
       </View>
 
       {/* Proceed Button */}
-      <Pressable style={StartScreenStyles.buttonStyle}>
+      <Pressable
+        style={StartScreenStyles.buttonStyle}
+        onPress={() => navigation.navigate({name: 'HomeNav', params: {}})}>
         <Text style={StartScreenStyles.buttonTextStyle}>Proceed</Text>
       </Pressable>
     </View>

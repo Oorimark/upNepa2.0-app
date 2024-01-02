@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {pColor10, pColor30} from '../Colors';
+import {pColor10, pColor30, pColor60} from '../Colors';
 import {BaseStyle} from '../Global';
 
 export const StartScreenStyles = StyleSheet.create({
@@ -7,6 +7,8 @@ export const StartScreenStyles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 30,
     rowGap: 30,
+    backgroundColor: pColor60,
+    height: '100%',
   },
   headerContainer: {
     rowGap: 12,
@@ -19,7 +21,7 @@ export const StartScreenStyles = StyleSheet.create({
     fontSize: 26,
   },
   inputContainer: {
-    rowGap: 10,
+    rowGap: 25,
   },
   textInputStyle: {
     borderBottomWidth: 0.2,
@@ -29,6 +31,7 @@ export const StartScreenStyles = StyleSheet.create({
   checkBoxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    columnGap: 15,
   },
   buttonStyle: {
     backgroundColor: pColor30,

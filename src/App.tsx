@@ -10,8 +10,9 @@ import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {pColor60} from './styles/Colors';
-import StartScreen from './screens/Start';
-import HomeScreen from './screens/Home/Home';
+import HomeNav from './navigation/HomeNav';
+import {NavigationContainer} from '@react-navigation/native';
+import AppNav from './navigation/AppNav';
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -25,7 +26,9 @@ function App(): React.JSX.Element {
           barStyle={'dark-content'}
           backgroundColor={styles.statusBar.backgroundColor}
         />
-        <HomeScreen />
+        <NavigationContainer>
+          <AppNav />
+        </NavigationContainer>
       </SafeAreaView>
     </SafeAreaProvider>
   );
