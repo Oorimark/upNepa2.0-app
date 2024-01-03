@@ -4,27 +4,20 @@ import {HomeScreenStyles} from '../../styles/Screens/HomeStyles';
 import ParameterDisplaySection from './Sections/ParameterDisplaySection';
 import RecentLogsSection from './Sections/RecentLogsSection';
 import {IElectricalParameters} from '../../types/types';
-import {useEffect, useLayoutEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Logger} from '../../utils/utils';
 
-export default function HomeScreen({navigation}: any): JSX.Element {
+export default function HomeScreen({navigation, route}: any): JSX.Element {
   const [initialTime, setInitialTime] = useState<Date>();
   const [voltageDataLogger, setVoltageDataLogger] = useState<number[]>([0, 0]);
   const [retryConnection, setRetryConnection] = useState<boolean>(false);
-  const [dataLogs, setDataLogs] = useState<any[]>([]);
   const [electricalParameters, setElectricalParameters] =
     useState<IElectricalParameters>({voltage: 0, current: 0, power: 0});
 
-  useLayoutEffect(() => {
-    (async function () {
-      const fetchedLogs = await Logger.fetchLogs();
-      fetchedLogs && setDataLogs([...fetchedLogs]);
-    });
-  }, []);
+  const {dataLogs, setDataLogs} = route.params;
 
   useEffect(() => {
     const ws = new WebSocket('ws://192.168.4.1:81/');
-
     ws.onopen = () => console.log('WebSocket opened');
     ws.onmessage = event => {
       console.log('data: ', JSON.parse(event.data));

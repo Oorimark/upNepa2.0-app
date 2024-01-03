@@ -40,4 +40,11 @@ export const LogsScreenStyle = StyleSheet.create({
     borderRadius: 50,
     paddingHorizontal: 15,
   },
+  noLogsAvailableStyle: {
+    height: '100%',
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 10,
+    textAlign: 'center',
+    transform: [{translateY: 200}],
+  },
 });

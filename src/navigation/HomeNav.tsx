@@ -6,12 +6,30 @@ import HomeScreen from '../screens/Home/Home';
 import {StyleSheet, Text} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import LogsScreen from '../screens/Logs/Logs';
+import {useLayoutEffect, useState} from 'react';
+import {Logger} from '../utils/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function HomeNav(): JSX.Element {
+  const [dataLogs, setDataLogs] = useState<any[]>([]);
+
   const theme = useTheme();
   theme.colors.background = 'transperent';
+
+  useLayoutEffect(() => {
+    (async function () {
+      const fetchedLogs = await Logger.fetchLogs();
+      if (fetchedLogs) setDataLogs([...fetchedLogs]);
+    });
+
+    return () => {
+      (async () => {
+        await AsyncStorage.setItem('Logs', JSON.stringify(dataLogs));
+      })();
+    };
+  }, []);
 
   return (
     <Tab.Navigator
@@ -39,6 +57,7 @@ export default function HomeNav(): JSX.Element {
       <Tab.Screen
         name="Home"
         component={HomeScreen}
+        initialParams={{dataLogs, setDataLogs}}
         options={{
           tabBarLabel: (
             <Text style={styles.tabBarLabel}>Home</Text>
@@ -48,6 +67,7 @@ export default function HomeNav(): JSX.Element {
       <Tab.Screen
         name="Logs"
         component={LogsScreen}
+        initialParams={{dataLogs, setDataLogs}}
         options={{
           tabBarLabel: (
             <Text style={styles.tabBarLabel}>Logs</Text>
