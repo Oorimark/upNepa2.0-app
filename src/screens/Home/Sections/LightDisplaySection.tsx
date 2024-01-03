@@ -37,7 +37,7 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
   useEffect(() => {
     let interval: string | number | NodeJS.Timeout | undefined;
     const initialTime = props.initialTime;
-    if (initialTime && props.electricalParameters.voltage > 0) {
+    if (initialTime) {
       interval = setInterval(() => {
         const currentTime = new Date();
         const timeDifference = currentTime.getTime() - initialTime.getTime();

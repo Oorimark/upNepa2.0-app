@@ -25,8 +25,12 @@ export default function StartScreen({
   const [toggledCheckbox, setToggledCheckbox] = useState(false);
 
   const handleProceed = async () => {
-    toggledCheckbox && (await AsyncStorage.setItem('localAddress', inputText));
-    navigation.navigate({name: 'HomeNav', params: {}});
+    const IPAddress = await AsyncStorage.getItem('localAddress');
+    if (inputText || IPAddress) {
+      if (toggledCheckbox)
+        await AsyncStorage.setItem('localAddress', inputText);
+      navigation.navigate({name: 'HomeNav', params: {}});
+    }
   };
 
   return (

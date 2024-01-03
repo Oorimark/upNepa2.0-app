@@ -1,4 +1,4 @@
-import {Image, View, Text, FlatList} from 'react-native';
+import {Image, View, Text, FlatList, ToastAndroid} from 'react-native';
 import LightDisplaySection from './Sections/LightDisplaySection';
 import {HomeScreenStyles} from '../../styles/Screens/HomeStyles';
 import ParameterDisplaySection from './Sections/ParameterDisplaySection';
@@ -6,13 +6,10 @@ import RecentLogsSection from './Sections/RecentLogsSection';
 import {IElectricalParameters} from '../../types/types';
 import {useEffect, useLayoutEffect, useState} from 'react';
 import {Logger} from '../../utils/utils';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const ws = new WebSocket('ws://192.168.4.1:81/');
 
 export default function HomeScreen({navigation}: any): JSX.Element {
   const [initialTime, setInitialTime] = useState<Date>();
-  const [voltageDataLogger, setVoltageDataLogger] = useState<number[]>([]);
+  const [voltageDataLogger, setVoltageDataLogger] = useState<number[]>([0, 0]);
   const [retryConnection, setRetryConnection] = useState<boolean>(false);
   const [dataLogs, setDataLogs] = useState<any[]>([]);
   const [electricalParameters, setElectricalParameters] =
@@ -26,36 +23,42 @@ export default function HomeScreen({navigation}: any): JSX.Element {
   }, []);
 
   useEffect(() => {
+    const ws = new WebSocket('ws://192.168.4.1:81/');
+
     ws.onopen = () => console.log('WebSocket opened');
     ws.onmessage = event => {
       console.log('data: ', JSON.parse(event.data));
       setTimeout(() => {
-        setRetryConnection(false);
         const {voltage, current} = JSON.parse(event.data);
-        setElectricalParameters({voltage, current, power: voltage * current});
+        setRetryConnection(false);
         setVoltageDataLogger(prev => [...prev, voltage]);
-      }, 3000);
+        setElectricalParameters({voltage, current, power: voltage * current});
+      }, 2000);
     };
     ws.onclose = event => {
-      setRetryConnection(true);
+      setRetryConnection(false);
       console.log('WebSocket closed:', event.code, event.reason);
     };
     ws.onerror = error => {
-      console.error('WebSocket error:', error.message);
-      let voltage = 0;
-      let current = 0;
-      setElectricalParameters({voltage, current, power: voltage * current});
+      const [current, voltage] = [0, 0];
       setRetryConnection(false);
+      setVoltageDataLogger([0, 0]);
+      setElectricalParameters({voltage, current, power: voltage * current});
+      ToastAndroid.show(
+        'IP Address provided is invalid. Please check if WIFI is connected to the hardware if issue persist',
+        ToastAndroid.LONG,
+      );
     };
     return () => {
       ws.close();
-      setRetryConnection(false);
     };
   }, [retryConnection]);
 
   useEffect(() => {
-    console.log('Voltage Logger: ', voltageDataLogger);
-    if (electricalParameters.voltage === 0) {
+    const lastTwoValues = voltageDataLogger.slice(-2);
+    const [voltage1, voltage2] = lastTwoValues;
+    // checks if there's a change from no-light to light
+    if (voltage1 === 0 && voltage2 > 0) {
       const startingTime = new Date();
       const newLog = Logger.createLog(startingTime);
       setDataLogs([...dataLogs, newLog]);

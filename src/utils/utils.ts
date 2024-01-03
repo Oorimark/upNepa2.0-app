@@ -31,6 +31,8 @@ export class Logger {
   }
 
   static async fetchLogs() {
-    return JSON.parse((await AsyncStorage.getItem('Logs')) as string);
+    return await AsyncStorage.getItem('Logs')
+      .then(res => JSON.parse(res as string))
+      .catch(err => err);
   }
 }
