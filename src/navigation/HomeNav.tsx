@@ -32,7 +32,6 @@ export default function HomeNav(): JSX.Element {
         paddingVertical: 4,
         marginVertical: 10,
         backgroundColor: pColor30,
-        borderRadius: 20,
         width: '80%',
         alignSelf: 'center',
         ...BaseStyle.defaultFont,
@@ -62,7 +61,7 @@ export default function HomeNav(): JSX.Element {
 const styles = StyleSheet.create({
   tabBarLabel: {
     textAlign: 'center',
-    paddingTop: 2,
-    ...BaseStyle.defaultFont,
+    paddingTop: 12,
+    fontFamily: 'Montserrat-SemiBold',
   },
 });

@@ -1,11 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class Logger {
+  static createLog(startingTime: Date) {
+    const time = startingTime.getTime();
+    return {time, timeDiff: 0};
+  }
+
   static async log(startingTime: Date) {
     const time = startingTime.getTime();
-    console.log(time);
-
-    const getPrevItem = await AsyncStorage.getItem('Logs');
+    const getPrevItem = JSON.parse(
+      (await AsyncStorage.getItem('Logs')) as string,
+    );
     if (!getPrevItem) {
       await AsyncStorage.setItem('Logs', JSON.stringify([{time, timeDiff: 2}]));
     } else {

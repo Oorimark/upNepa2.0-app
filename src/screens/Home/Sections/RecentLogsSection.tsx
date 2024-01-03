@@ -1,20 +1,25 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import {HomeScreenStyles} from '../../../styles/Screens/HomeStyles';
 import {BaseStyle} from '../../../styles/Global';
 import {useEffect, useState} from 'react';
 import {IElectricalParameters} from '../../../types/types';
 import {Logger} from '../../../utils/utils';
 
-export default function RecentLogsSection(
-  props: IElectricalParameters,
-): JSX.Element {
+type IProps = {
+  electricalParameters: IElectricalParameters;
+  navigation: any;
+  dataLogs: any[];
+};
+export default function RecentLogsSection(props: IProps): JSX.Element {
   const [logs, setLogs] = useState<any[]>([]);
 
   useEffect(() => {
     (async function () {
-      setLogs([...JSON.parse(await Logger.fetchLogs())]);
+      const fetchedLogs = await Logger.fetchLogs();
+      console.log('Fetched Logs: ', fetchedLogs);
+      setLogs([...fetchedLogs]);
     })();
-  }, [props.voltage]);
+  }, [props.electricalParameters]);
 
   return (
     <View style={HomeScreenStyles.RecentLogsSectionContainer}>
@@ -23,12 +28,14 @@ export default function RecentLogsSection(
         <Text style={HomeScreenStyles.RecentLogsSectionHeaderLabelStyle}>
           Recent Logs
         </Text>
-        <Text style={BaseStyle.defaultFont}>See All</Text>
+        <Pressable onPress={() => props.navigation.navigate('Logs')}>
+          <Text style={BaseStyle.defaultFont}>See All</Text>
+        </Pressable>
       </View>
 
       {/* Logs Display */}
       <View style={HomeScreenStyles.RecentLogsSectionBoxContainer}>
-        {logs.map((log, index) => (
+        {props.dataLogs.map((log, index) => (
           <View key={index} style={HomeScreenStyles.RecentLogsSectionBoxStyle}>
             <View style={HomeScreenStyles.RecentLogsSectionBoxStyleSection}>
               <Image
@@ -41,7 +48,7 @@ export default function RecentLogsSection(
             </View>
             <Text
               style={HomeScreenStyles.RecentLogsSectionBoxDurationTextStyle}>
-              2hrs ago
+              {log.timeDiff}hrs ago
             </Text>
           </View>
         ))}

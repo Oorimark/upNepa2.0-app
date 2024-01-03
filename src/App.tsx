@@ -10,13 +10,16 @@ import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {pColor60} from './styles/Colors';
-import HomeNav from './navigation/HomeNav';
 import {NavigationContainer} from '@react-navigation/native';
 import AppNav from './navigation/AppNav';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function App(): React.JSX.Element {
   useEffect(() => {
     SplashScreen.hide();
+    // (async function () {
+    //   await AsyncStorage.clear();
+    // })();
   }, []);
 
   return (

@@ -27,7 +27,7 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
     const t = voltage > 0 ? 'light' : 'no-light';
     setLightExist(t);
     setLightStatus(
-      voltage > LOWER_VOLTAGE_LIMIT && voltage < UPPER_VOLTAGE_LIMIT
+      voltage && voltage > LOWER_VOLTAGE_LIMIT && voltage < UPPER_VOLTAGE_LIMIT
         ? 'GOOD'
         : 'BAD',
     );
@@ -36,18 +36,16 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
   // timer
   useEffect(() => {
     let interval: string | number | NodeJS.Timeout | undefined;
-    const initialTime = new Date();
-    if (initialTime) {
+    const initialTime = props.initialTime;
+    if (initialTime && props.electricalParameters.voltage > 0) {
       interval = setInterval(() => {
         const currentTime = new Date();
         const timeDifference = currentTime.getTime() - initialTime.getTime();
-
         const hours = Math.floor(timeDifference / (1000 * 60 * 60));
         const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
         const minutes = Math.floor(
           (timeDifference % (1000 * 60 * 60)) / (1000 * 60),
         );
-
         setTimer(seconds);
         seconds >= 60 || setTimerMinute(minutes);
         minutes >= 60 || setTimerHour(hours);
@@ -90,7 +88,7 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
               style={
                 HomeScreenStyles.LightDisplaySectionLightConditionTextStyle
               }>
-              {lightStatus}
+              {props.electricalParameters.voltage ? lightStatus : '--'}
             </Text>
           </View>
         </View>

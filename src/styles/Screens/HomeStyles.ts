@@ -3,12 +3,14 @@ import {pColor10, pColor30, pColor60, sColor60} from '../Colors';
 import {BaseStyle} from '../Global';
 
 export const HomeScreenStyles = StyleSheet.create({
-  container: {
-    paddingVertical: 20,
-    paddingHorizontal: 11,
-    rowGap: 7,
+  listContainer: {
     backgroundColor: pColor60,
     height: '100%',
+    paddingVertical: 20,
+    paddingHorizontal: 9,
+  },
+  container: {
+    rowGap: 7,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -106,8 +108,8 @@ export const HomeScreenStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexWrap: 'wrap',
-    rowGap: 15,
-    columnGap: 15,
+    rowGap: 10,
+    columnGap: 10,
     marginVertical: 15,
   },
   ParameterDisplayBoxStyle: {
@@ -116,7 +118,7 @@ export const HomeScreenStyles = StyleSheet.create({
     paddingHorizontal: 27,
     alignItems: 'center',
     borderRadius: 12,
-    width: 150,
+    width: 170,
   },
   ParameterDisplayBoxLabel: {
     fontFamily: 'Montserrat-Medium',
