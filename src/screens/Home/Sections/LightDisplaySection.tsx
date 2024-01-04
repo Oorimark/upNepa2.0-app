@@ -83,11 +83,16 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
               Status:
             </Text>
           </View>
-          <View style={HomeScreenStyles.LightDisplaySectionLightConditionStyle}>
+          <View
+            style={[
+              HomeScreenStyles.LightDisplaySectionLightConditionStyle,
+              lightStatus === 'BAD' && {backgroundColor: '#FFBEBA'},
+            ]}>
             <Text
-              style={
-                HomeScreenStyles.LightDisplaySectionLightConditionTextStyle
-              }>
+              style={[
+                HomeScreenStyles.LightDisplaySectionLightConditionTextStyle,
+                lightStatus === 'BAD' && {color: '#FF4F18'},
+              ]}>
               {props.electricalParameters.voltage ? lightStatus : '--'}
             </Text>
           </View>
