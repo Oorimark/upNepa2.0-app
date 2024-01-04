@@ -43,7 +43,7 @@ export default function RecentLogsSection(props: IProps): JSX.Element {
                 style={HomeScreenStyles.RecentLogsSectionBoxImageStyle}
               />
               <Text style={HomeScreenStyles.RecentLogsSectionBoxLogTextStyle}>
-                Light was restored by {log.restoredTime}
+                Light was restored by {log.time}
               </Text>
             </View>
             <Text

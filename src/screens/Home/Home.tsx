@@ -4,17 +4,24 @@ import {HomeScreenStyles} from '../../styles/Screens/HomeStyles';
 import ParameterDisplaySection from './Sections/ParameterDisplaySection';
 import RecentLogsSection from './Sections/RecentLogsSection';
 import {IElectricalParameters} from '../../types/types';
-import {useEffect, useState} from 'react';
+import {useEffect, useLayoutEffect, useState} from 'react';
 import {Logger} from '../../utils/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({navigation, route}: any): JSX.Element {
+  const [dataLogs, setDataLogs] = useState<any[]>([]);
   const [initialTime, setInitialTime] = useState<Date>();
   const [voltageDataLogger, setVoltageDataLogger] = useState<number[]>([0, 0]);
   const [retryConnection, setRetryConnection] = useState<boolean>(false);
   const [electricalParameters, setElectricalParameters] =
     useState<IElectricalParameters>({voltage: 0, current: 0, power: 0});
 
-  const {dataLogs, setDataLogs} = route.params;
+  useLayoutEffect(() => {
+    (async function () {
+      const fetchedLogs = await Logger.fetchLogs();
+      if (fetchedLogs) setDataLogs([...fetchedLogs]);
+    })();
+  }, [Logger.log]);
 
   useEffect(() => {
     const ws = new WebSocket('ws://192.168.4.1:81/');
@@ -53,7 +60,7 @@ export default function HomeScreen({navigation, route}: any): JSX.Element {
     // checks if there's a change from no-light to light
     if (voltage1 === 0 && voltage2 > 0) {
       const startingTime = new Date();
-      const newLog = Logger.createLog(startingTime);
+      const newLog = Logger.log(startingTime);
       setDataLogs([...dataLogs, newLog]);
       setInitialTime(startingTime);
     }

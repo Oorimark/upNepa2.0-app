@@ -14,6 +14,6 @@ export type IAppState = {
 };
 
 export type ILog = {
-  time: Date;
+  time: string;
   timeDiff: number;
 };

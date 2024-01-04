@@ -2,19 +2,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class Logger {
   static createLog(startingTime: Date) {
-    const time = startingTime.getTime();
+    const time = formatTimeIn12HourFormat(startingTime);
     return {time, timeDiff: 0};
   }
 
   static async log(startingTime: Date) {
-    const time = startingTime.getTime();
+    const createdLog = Logger.createLog(startingTime);
     const getPrevItem = JSON.parse(
       (await AsyncStorage.getItem('Logs')) as string,
     );
     if (!getPrevItem) {
-      await AsyncStorage.setItem('Logs', JSON.stringify([{time, timeDiff: 2}]));
+      await AsyncStorage.setItem('Logs', JSON.stringify([createdLog]));
     } else {
-      const newItem = [...getPrevItem, {time, timeDiff: 2}];
+      const newItem = [...getPrevItem, createdLog];
       await AsyncStorage.setItem('Logs', JSON.stringify(newItem));
     }
   }
@@ -36,3 +36,14 @@ export class Logger {
       .catch(err => err);
   }
 }
+
+const formatTimeIn12HourFormat = (date: Date) => {
+  let hours = date.getHours();
+  let minutes: string | number = date.getMinutes();
+  const amPm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12 || 12; // Convert 0 to 12 for midnight
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  return `${hours}:${minutes}${amPm}`;
+};
