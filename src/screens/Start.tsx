@@ -1,20 +1,11 @@
-import {Image, Pressable, Text, TextInput, View} from 'react-native';
-import {StartScreenStyles} from '../styles/Screens/StartStyles';
+import {useState} from 'react';
 import {BaseStyle} from '../styles/Global';
 import {pColor30} from '../styles/Colors';
 import {Checkbox} from 'react-native-ui-lib';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-type RootStackParamList = {
-  HomeNav: {};
-};
-
-type HomeScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'HomeNav'
->;
+import {Image, Pressable, Text, TextInput, View} from 'react-native';
+import {StartScreenStyles} from '../styles/Screens/StartStyles';
+import {HomeScreenNavigationProp} from '../types/types';
 
 export default function StartScreen({
   navigation,
@@ -27,8 +18,8 @@ export default function StartScreen({
   const handleProceed = async () => {
     const IPAddress = await AsyncStorage.getItem('localAddress');
     if (inputText || IPAddress) {
-      if (toggledCheckbox)
-        await AsyncStorage.setItem('localAddress', inputText);
+      toggledCheckbox &&
+        (await AsyncStorage.setItem('localAddress', inputText));
       navigation.navigate({name: 'HomeNav', params: {}});
     }
   };

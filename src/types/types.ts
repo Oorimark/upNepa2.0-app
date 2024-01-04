@@ -1,3 +1,9 @@
+import {StackNavigationProp} from '@react-navigation/stack';
+
+type RootStackParamList = {
+  HomeNav: {};
+};
+
 export type IElectricalParameters = {
   voltage: number;
   current: number;
@@ -17,3 +23,8 @@ export type ILog = {
   time: string;
   timeDiff: number;
 };
+
+export type HomeScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'HomeNav'
+>;
