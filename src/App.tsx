@@ -8,16 +8,14 @@
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
 import {pColor60} from './styles/Colors';
 import {NavigationContainer} from '@react-navigation/native';
-import AppNav from './navigation/AppNav';
+import {createStackNavigator} from '@react-navigation/stack';
+import AppNavigator from './navigation/AppNav';
+
+const Stack = createStackNavigator();
 
 function App(): React.JSX.Element {
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -26,7 +24,7 @@ function App(): React.JSX.Element {
           backgroundColor={styles.statusBar.backgroundColor}
         />
         <NavigationContainer>
-          <AppNav />
+          <AppNavigator />
         </NavigationContainer>
       </SafeAreaView>
     </SafeAreaProvider>

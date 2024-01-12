@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
-export default function AppNav() {
+export default function AppNavigator() {
   const [rememberIP, setRememberIP] = useState<string | null>(null);
 
   useLayoutEffect(() => {
@@ -17,14 +17,12 @@ export default function AppNav() {
     })();
   }, []);
 
-  if (rememberIP) {
-    return (
-      <Stack.Navigator
-        screenOptions={{headerShown: false}}
-        initialRouteName={rememberIP ? 'HomeNav' : 'Start'}>
-        <Stack.Screen name="Start" component={StartScreen} />
-        <Stack.Screen name="HomeNav" component={HomeNav} />
-      </Stack.Navigator>
-    );
-  }
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName={rememberIP ? 'HomeNav' : 'Start'}>
+      <Stack.Screen name="Start" component={StartScreen} />
+      <Stack.Screen name="HomeNav" component={HomeNav} />
+    </Stack.Navigator>
+  );
 }

@@ -32,10 +32,7 @@
     "react-native-svg": "^14.1.0",
     "react-native-ui-lib": "^7.13.0",
     "react-native-vector-icons": "^10.0.3",
-    "react-native-websocket": "^1.0.2",
-    "react-redux": "^9.0.4",
-    "redux": "^5.0.1",
-    "redux-thunk": "^3.1.0"
+    "react-native-websocket": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

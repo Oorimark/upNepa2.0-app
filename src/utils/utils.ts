@@ -5,7 +5,6 @@ export class Logger {
     const time = formatTimeIn12HourFormat(startingTime);
     return {time, timeDiff: 0};
   }
-
   static async log(startingTime: Date) {
     const createdLog = Logger.createLog(startingTime);
     const getPrevItem = JSON.parse(
@@ -18,7 +17,6 @@ export class Logger {
       await AsyncStorage.setItem('Logs', JSON.stringify(newItem));
     }
   }
-
   static LastTimeSorter(prevTime: Date) {
     const currentTime = new Date();
     const timeDifference = currentTime.getTime() - prevTime.getTime();
@@ -29,7 +27,6 @@ export class Logger {
     );
     return {hours, minutes, seconds};
   }
-
   static async fetchLogs() {
     return await AsyncStorage.getItem('Logs')
       .then(res => JSON.parse(res as string))
@@ -44,6 +41,5 @@ const formatTimeIn12HourFormat = (date: Date) => {
 
   hours = hours % 12 || 12; // Convert 0 to 12 for midnight
   minutes = minutes < 10 ? '0' + minutes : minutes;
-
   return `${hours}:${minutes}${amPm}`;
 };
