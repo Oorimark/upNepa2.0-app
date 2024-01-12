@@ -1,6 +1,6 @@
 import {useLayoutEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import StartScreen from '../screens/Start';
+import StartScreen from '../screens/Start/Start';
 import HomeNav from './HomeNav';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

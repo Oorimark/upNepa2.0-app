@@ -6,6 +6,7 @@
  */
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import Orientation from 'react-native-orientation';
 import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {pColor60} from './styles/Colors';
@@ -13,6 +14,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AppNavigator from './navigation/AppNav';
 
+Orientation.lockToPortrait();
 const Stack = createStackNavigator();
 
 function App(): React.JSX.Element {
