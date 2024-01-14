@@ -25,6 +25,7 @@ export default function HomeScreen({navigation}: any): JSX.Element {
 
   useEffect(() => {
     handleSocketsConnection(
+      setInitialTime,
       setRetryConnection,
       setVoltageDataLogger,
       setElectricalParameters,

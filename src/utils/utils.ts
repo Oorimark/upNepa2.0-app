@@ -5,18 +5,24 @@ export class Logger {
     const time = formatTimeIn12HourFormat(startingTime);
     return {time, timeDiff: 0};
   }
+
   static async log(startingTime: Date) {
     const createdLog = Logger.createLog(startingTime);
     const getPrevItem = JSON.parse(
       (await AsyncStorage.getItem('Logs')) as string,
     );
+
+    console.log('LOGGING...');
+    console.log('Prev Item: ', getPrevItem);
+
     if (!getPrevItem) {
       await AsyncStorage.setItem('Logs', JSON.stringify([createdLog]));
-    } else {
-      const newItem = [...getPrevItem, createdLog];
-      await AsyncStorage.setItem('Logs', JSON.stringify(newItem));
+      return;
     }
+    const newItem = [...getPrevItem, createdLog];
+    await AsyncStorage.setItem('Logs', JSON.stringify(newItem));
   }
+
   static LastTimeSorter(prevTime: Date) {
     const currentTime = new Date();
     const timeDifference = currentTime.getTime() - prevTime.getTime();
@@ -27,6 +33,7 @@ export class Logger {
     );
     return {hours, minutes, seconds};
   }
+
   static async fetchLogs() {
     return await AsyncStorage.getItem('Logs')
       .then(res => JSON.parse(res as string))

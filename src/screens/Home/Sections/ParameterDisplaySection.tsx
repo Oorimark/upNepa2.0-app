@@ -44,7 +44,7 @@ export default function ParameterDisplaySection(
           <Text style={HomeScreenStyles.ParameterDisplayBoxLabel}>
             POWER FACTOR
           </Text>
-          <Text style={HomeScreenStyles.ParameterDisplayBoxTextStyle}>0.9</Text>
+          <Text style={HomeScreenStyles.ParameterDisplayBoxTextStyle}>0</Text>
         </View>
       </View>
     </View>

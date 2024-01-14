@@ -4,6 +4,7 @@ import {ToastAndroid} from 'react-native';
 import {IElectricalParameters, ILog} from '../../types/types';
 
 export const handleSocketsConnection = (
+  setInitialTime: React.Dispatch<React.SetStateAction<Date | undefined>>,
   setRetryConnection: React.Dispatch<React.SetStateAction<boolean>>,
   setVoltageDataLogger: React.Dispatch<React.SetStateAction<number[]>>,
   setElectricalParameters: React.Dispatch<
@@ -30,6 +31,7 @@ export const handleSocketsConnection = (
     setRetryConnection(false);
     setVoltageDataLogger([0, 0]);
     setElectricalParameters({voltage, current, power: voltage * current});
+    setInitialTime(undefined);
     ToastAndroid.show(
       'IP Address provided is invalid. Please check if WIFI is connected to the hardware if issue persist',
       ToastAndroid.LONG,

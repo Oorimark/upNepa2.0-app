@@ -16,8 +16,8 @@ export default function RecentLogsSection(props: IProps): JSX.Element {
   useEffect(() => {
     (async function () {
       const fetchedLogs = await Logger.fetchLogs();
+      if (fetchedLogs) setLogs([...fetchedLogs]);
       console.log('Fetched Logs: ', fetchedLogs);
-      setLogs([...fetchedLogs]);
     })();
   }, [props.electricalParameters]);
 

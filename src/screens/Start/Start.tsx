@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Image, Pressable, Text, TextInput, View} from 'react-native';
 import {StartScreenStyles} from '../../styles/Screens/StartStyles';
 import {HomeScreenNavigationProp} from '../../types/types';
+import {Logger} from '../../utils/utils';
 
 export default function StartScreen({
   navigation,

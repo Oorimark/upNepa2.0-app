@@ -24,7 +24,7 @@ export const StartScreenStyles = StyleSheet.create({
     rowGap: 25,
   },
   textInputStyle: {
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.7,
     fontFamily: 'Montserrat-Regular',
     fontSize: 16,
   },
