@@ -28,7 +28,7 @@ export default function StartScreen({
     <View style={StartScreenStyles.container}>
       {/* Screen Header Section */}
       <View style={StartScreenStyles.headerContainer}>
-        <Image source={require('../../assets/img/up-nepa-logo.png')} />
+        <Image source={require('../../../assets/img/up-nepa-logo.png')} />
         <View style={StartScreenStyles.headerTextContainer}>
           <Text style={StartScreenStyles.headerTextMain}>Enter IP Address</Text>
           <Text style={BaseStyle.defaultFont}>

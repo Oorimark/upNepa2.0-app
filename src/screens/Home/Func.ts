@@ -1,7 +1,7 @@
-import {ToastAndroid} from 'react-native';
-import {IElectricalParameters, ILog} from '../../types/types';
 import React from 'react';
 import {Logger} from '../../utils/utils';
+import {ToastAndroid} from 'react-native';
+import {IElectricalParameters, ILog} from '../../types/types';
 
 export const handleSocketsConnection = (
   setRetryConnection: React.Dispatch<React.SetStateAction<boolean>>,
@@ -25,7 +25,7 @@ export const handleSocketsConnection = (
     setRetryConnection(false);
     console.log('WebSocket closed:', event.code, event.reason);
   };
-  ws.onerror = error => {
+  ws.onerror = ___ => {
     const [current, voltage] = [0, 0];
     setRetryConnection(false);
     setVoltageDataLogger([0, 0]);
