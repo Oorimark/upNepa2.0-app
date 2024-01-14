@@ -39,6 +39,10 @@ export class Logger {
       .then(res => JSON.parse(res as string))
       .catch(err => err);
   }
+
+  static async clearLogs() {
+    await AsyncStorage.clear();
+  }
 }
 
 const formatTimeIn12HourFormat = (date: Date) => {

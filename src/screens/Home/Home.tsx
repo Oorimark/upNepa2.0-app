@@ -19,9 +19,9 @@ export default function HomeScreen({navigation}: any): JSX.Element {
   useLayoutEffect(() => {
     (async function () {
       const fetchedLogs = await Logger.fetchLogs();
-      if (fetchedLogs) setDataLogs([...fetchedLogs]);
+      fetchedLogs ? setDataLogs([...fetchedLogs]) : setDataLogs([]);
     })();
-  }, [Logger.log]);
+  }, [Logger]);
 
   useEffect(() => {
     handleSocketsConnection(
