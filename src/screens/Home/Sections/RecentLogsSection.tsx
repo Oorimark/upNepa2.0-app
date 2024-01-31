@@ -1,26 +1,13 @@
 import {View, Text, Image, Pressable} from 'react-native';
 import {HomeScreenStyles} from '../../../styles/Screens/HomeStyles';
 import {BaseStyle} from '../../../styles/Global';
-import {useEffect, useState} from 'react';
-import {IElectricalParameters} from '../../../types/types';
-import {Logger} from '../../../utils/utils';
 
 type IProps = {
-  electricalParameters: IElectricalParameters;
   navigation: any;
   dataLogs: any[];
 };
+
 export default function RecentLogsSection(props: IProps): JSX.Element {
-  const [logs, setLogs] = useState<any[]>([]);
-
-  useEffect(() => {
-    (async function () {
-      const fetchedLogs = await Logger.fetchLogs();
-      if (fetchedLogs) setLogs([...fetchedLogs]);
-      console.log('Fetched Logs: ', fetchedLogs);
-    })();
-  }, [props.electricalParameters]);
-
   return (
     <View style={HomeScreenStyles.RecentLogsSectionContainer}>
       {/* Section Header */}

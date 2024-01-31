@@ -1,9 +1,14 @@
 import React from 'react';
 import {Logger} from '../../utils/utils';
+import io from 'socket.io-client';
 import {ToastAndroid} from 'react-native';
 import {IElectricalParameters, ILog} from '../../types/types';
 
-export const handleSocketsConnection = (
+let dataTimeout: any;
+
+const url = 'https://upnepa-backend-websocket-server-with-node.onrender.com';
+
+export const handleSocketsConnection = async (
   setInitialTime: React.Dispatch<React.SetStateAction<Date | undefined>>,
   setRetryConnection: React.Dispatch<React.SetStateAction<boolean>>,
   setVoltageDataLogger: React.Dispatch<React.SetStateAction<number[]>>,
@@ -11,34 +16,50 @@ export const handleSocketsConnection = (
     React.SetStateAction<IElectricalParameters>
   >,
 ) => {
-  const ws = new WebSocket('ws://192.168.4.1:81/');
-  ws.onopen = () => console.log('WebSocket opened');
-  ws.onmessage = event => {
-    console.log('data: ', JSON.parse(event.data));
+  const socket = io(url);
+
+  socket.on('connect', () => {
+    console.log('WebSocket connected');
+    dataTimeout = setTimeout(() => {
+      console.log('No data received within timeout period');
+      const [current, voltage] = [0, 0];
+      setRetryConnection(false);
+      setVoltageDataLogger([0, 0]);
+      setElectricalParameters({voltage, current, power: voltage * current});
+      setInitialTime(undefined);
+      // Perform actions when no data is received within the timeout
+    }, 5000);
+  });
+
+  socket.on('message', data => {
+    console.log('data:', data);
+    clearTimeout(dataTimeout);
     setTimeout(() => {
-      const {voltage, current} = JSON.parse(event.data);
+      const {voltage, current} = data;
       setRetryConnection(false);
       setVoltageDataLogger(prev => [...prev, voltage]);
       setElectricalParameters({voltage, current, power: voltage * current});
     }, 2000);
-  };
-  ws.onclose = event => {
+  });
+
+  socket.on('disconnect', reason => {
+    clearTimeout(dataTimeout);
     setRetryConnection(false);
-    console.log('WebSocket closed:', event.code, event.reason);
-  };
-  ws.onerror = ___ => {
+    console.log('WebSocket disconnected:', reason);
+  });
+
+  socket.on('connect_error', error => {
+    clearTimeout(dataTimeout);
     const [current, voltage] = [0, 0];
     setRetryConnection(false);
     setVoltageDataLogger([0, 0]);
     setElectricalParameters({voltage, current, power: voltage * current});
     setInitialTime(undefined);
-    ToastAndroid.show(
-      'IP Address provided is invalid. Please check if WIFI is connected to the hardware if issue persist',
-      ToastAndroid.LONG,
-    );
-  };
+    console.log(error);
+  });
+
   return () => {
-    ws.close();
+    socket.close();
   };
 };
 

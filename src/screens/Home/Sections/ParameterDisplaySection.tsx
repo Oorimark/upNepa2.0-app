@@ -29,7 +29,7 @@ export default function ParameterDisplaySection(
             CURRENT (A)
           </Text>
           <Text style={HomeScreenStyles.ParameterDisplayBoxTextStyle}>
-            {props.current}
+            {props.current && props.current.toFixed(2)}
           </Text>
         </View>
         <View style={HomeScreenStyles.ParameterDisplayBoxStyle}>

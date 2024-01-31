@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Image, Pressable, Text, TextInput, View} from 'react-native';
 import {StartScreenStyles} from '../../styles/Screens/StartStyles';
 import {HomeScreenNavigationProp} from '../../types/types';
-import {Logger} from '../../utils/utils';
 
 export default function StartScreen({
   navigation,
@@ -31,9 +30,12 @@ export default function StartScreen({
       <View style={StartScreenStyles.headerContainer}>
         <Image source={require('../../../assets/img/up-nepa-logo.png')} />
         <View style={StartScreenStyles.headerTextContainer}>
-          <Text style={StartScreenStyles.headerTextMain}>Enter IP Address</Text>
+          <Text style={StartScreenStyles.headerTextMain}>
+            Enter Hardware Name
+          </Text>
           <Text style={BaseStyle.defaultFont}>
-            Provide the IP Address from the hardware
+            Provide the hardware name. This would be used to store data
+            specified to the hardware
           </Text>
         </View>
       </View>
@@ -41,7 +43,7 @@ export default function StartScreen({
       {/* Input Ip Address Section */}
       <View style={StartScreenStyles.inputContainer}>
         <TextInput
-          placeholder="IP Address"
+          placeholder="Hardware Name"
           keyboardType="numeric"
           onChangeText={text => setInputText(text)}
           style={StartScreenStyles.textInputStyle}
@@ -54,7 +56,7 @@ export default function StartScreen({
             size={20}
             color={pColor30}
           />
-          <Text style={BaseStyle.defaultFont}>Remember IP Address</Text>
+          <Text style={BaseStyle.defaultFont}>Remember </Text>
         </View>
       </View>
 

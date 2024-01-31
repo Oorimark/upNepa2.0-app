@@ -12,9 +12,6 @@ export class Logger {
       (await AsyncStorage.getItem('Logs')) as string,
     );
 
-    console.log('LOGGING...');
-    console.log('Prev Item: ', getPrevItem);
-
     if (!getPrevItem) {
       await AsyncStorage.setItem('Logs', JSON.stringify([createdLog]));
       return;

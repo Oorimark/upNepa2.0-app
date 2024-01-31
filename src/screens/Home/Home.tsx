@@ -5,7 +5,7 @@ import LightDisplaySection from './Sections/LightDisplaySection';
 import {IElectricalParameters, ILog} from '../../types/types';
 import ParameterDisplaySection from './Sections/ParameterDisplaySection';
 import {Image, View, Text, FlatList} from 'react-native';
-import {useEffect, useLayoutEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {handleSocketsConnection, handleTimerAndLogUpdates} from './Func';
 
 export default function HomeScreen({navigation}: any): JSX.Element {
@@ -16,12 +16,13 @@ export default function HomeScreen({navigation}: any): JSX.Element {
   const [electricalParameters, setElectricalParameters] =
     useState<IElectricalParameters>({voltage: 0, current: 0, power: 0});
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    console.log('Logs Loggers');
     (async function () {
       const fetchedLogs = await Logger.fetchLogs();
       fetchedLogs ? setDataLogs([...fetchedLogs]) : setDataLogs([]);
     })();
-  }, [Logger]);
+  }, [Logger.log, Logger.clearLogs]);
 
   useEffect(() => {
     handleSocketsConnection(
@@ -62,9 +63,7 @@ export default function HomeScreen({navigation}: any): JSX.Element {
           {/* Parameter Display Section && Recent Logs Section */}
           <View style={HomeScreenStyles.ParameterDisplayParentStyle}>
             <ParameterDisplaySection {...electricalParameters} />
-            <RecentLogsSection
-              {...{electricalParameters, navigation, dataLogs}}
-            />
+            <RecentLogsSection {...{navigation, dataLogs}} />
           </View>
         </View>,
       ]}

@@ -12,7 +12,6 @@ export default function AppNavigator() {
   useLayoutEffect(() => {
     (async function () {
       const IPAddress = await AsyncStorage.getItem('localAddress');
-      console.log(IPAddress);
       setRememberIP(IPAddress);
     })();
   }, []);
