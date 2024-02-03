@@ -22,7 +22,7 @@ export default function HomeScreen({navigation}: any): JSX.Element {
       const fetchedLogs = await Logger.fetchLogs();
       fetchedLogs ? setDataLogs([...fetchedLogs]) : setDataLogs([]);
     })();
-  }, [Logger.log, Logger.clearLogs]);
+  }, [Logger]);
 
   useEffect(() => {
     handleSocketsConnection(
