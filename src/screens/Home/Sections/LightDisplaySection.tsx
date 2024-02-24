@@ -50,6 +50,10 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
         seconds >= 60 || setTimerMinute(minutes);
         minutes >= 60 || setTimerHour(hours);
       }, 1000);
+    } else {
+      setTimerHour(0);
+      setTimerMinute(0);
+      setTimer(0);
     }
     return () => clearInterval(interval);
   }, [props.initialTime]);
