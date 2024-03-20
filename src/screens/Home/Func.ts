@@ -1,6 +1,6 @@
 import React from 'react';
-import {Logger} from '../../utils/utils';
 import io from 'socket.io-client';
+import {Logger} from '../../utils/utils';
 import {IElectricalParameters, ILog} from '../../types/types';
 
 const SOCKET_TIMEOUT_PERIOD: number = 3000; // milli-seconds
@@ -15,7 +15,6 @@ let dataInterval: any;
 export const handleSocketsConnection = async (
   electricalParameters: IElectricalParameters,
   setInitialTime: React.Dispatch<React.SetStateAction<Date | undefined>>,
-  setRetryConnection: React.Dispatch<React.SetStateAction<boolean>>,
   setVoltageDataLogger: React.Dispatch<React.SetStateAction<number[]>>,
   setElectricalParameters: React.Dispatch<
     React.SetStateAction<IElectricalParameters>
@@ -31,7 +30,6 @@ export const handleSocketsConnection = async (
             handleResetOnWebSocktDisconnectActions(
               setInitialTime,
               setVoltageDataLogger,
-              setRetryConnection,
               setElectricalParameters,
             );
         }, SOCKET_TIMEOUT_PERIOD)),
@@ -53,7 +51,6 @@ export const handleSocketsConnection = async (
       handleResetOnWebSocktDisconnectActions(
         setInitialTime,
         setVoltageDataLogger,
-        setRetryConnection,
         setElectricalParameters,
       );
     console.log('WebSocket disconnected:', reason);
@@ -89,15 +86,20 @@ export const handleTimerAndLogUpdates = async (
 const handleResetOnWebSocktDisconnectActions = (
   setInitialTime: React.Dispatch<React.SetStateAction<Date | undefined>>,
   setVoltageDataLogger: React.Dispatch<React.SetStateAction<number[]>>,
-  setRetryConnection: React.Dispatch<React.SetStateAction<boolean>>,
   setElectricalParameters: React.Dispatch<
     React.SetStateAction<IElectricalParameters>
   >,
 ) => {
   const voltage = 0,
     current = 0;
+
+  const newElectricalParameter = {
+    voltage,
+    current,
+    power: voltage * current,
+  };
+
   setVoltageDataLogger([0, 0]); // Reset logger
-  setElectricalParameters({voltage, current, power: voltage * current});
+  setElectricalParameters(newElectricalParameter);
   setInitialTime(new Date());
-  // setRetryConnection(true);
 };

@@ -1,11 +1,11 @@
 import {Logger} from '../../utils/utils';
+import {useEffect, useState} from 'react';
+import {Image, View, Text, FlatList} from 'react-native';
 import RecentLogsSection from './Sections/RecentLogsSection';
+import {IElectricalParameters, ILog} from '../../types/types';
 import {HomeScreenStyles} from '../../styles/Screens/HomeStyles';
 import LightDisplaySection from './Sections/LightDisplaySection';
-import {IElectricalParameters, ILog} from '../../types/types';
 import ParameterDisplaySection from './Sections/ParameterDisplaySection';
-import {Image, View, Text, FlatList} from 'react-native';
-import {useEffect, useState} from 'react';
 import {handleSocketsConnection, handleTimerAndLogUpdates} from './Func';
 
 export default function HomeScreen({navigation}: any): JSX.Element {

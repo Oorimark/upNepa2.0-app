@@ -1,12 +1,12 @@
-import {View, Text, Image} from 'react-native';
-import {HomeScreenStyles} from '../../../styles/Screens/HomeStyles';
-import {IElectricalParameters} from '../../../types/types';
 import {useEffect, useState} from 'react';
+import {View, Text, Image} from 'react-native';
+import {IElectricalParameters} from '../../../types/types';
+import {HomeScreenStyles} from '../../../styles/Screens/HomeStyles';
 
-/* Voltage threshold limits
- ** Lower Limit: 170
- ** Upper LImit: 230
- */
+// Voltage threshold limits
+// Lower Limit: 170
+// Upper LImit: 230
+
 const LOWER_VOLTAGE_LIMIT = 170;
 const UPPER_VOLTAGE_LIMIT = 230;
 
@@ -19,13 +19,13 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
   const [timer, setTimer] = useState(0);
   const [timerMinute, setTimerMinute] = useState<number>(0);
   const [timerHour, setTimerHour] = useState<number>(0);
-  const [lightExist, setLightExist] = useState<'light' | 'no-light'>('light');
+  const [lightExist, setLightExist] = useState<boolean>(false);
   const [lightStatus, setLightStatus] = useState<'GOOD' | 'BAD'>('GOOD');
 
   useEffect(() => {
     const {voltage} = props.electricalParameters;
-    const t = voltage > 0 ? 'light' : 'no-light';
-    setLightExist(t);
+    const r = voltage > 0;
+    setLightExist(r);
     setLightStatus(
       voltage && voltage > LOWER_VOLTAGE_LIMIT && voltage < UPPER_VOLTAGE_LIMIT
         ? 'GOOD'
@@ -51,6 +51,7 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
         minutes >= 60 || setTimerHour(hours);
       }, 1000);
     } else {
+      // Reset timer
       setTimerHour(0);
       setTimerMinute(0);
       setTimer(0);
@@ -65,13 +66,13 @@ export default function LightDisplaySection(props: IProps): JSX.Element {
         <View style={HomeScreenStyles.LightDisplaySectionLightExistContainer}>
           <Image
             source={
-              lightExist === 'light'
+              lightExist
                 ? require(`../../../../assets/img/light.png`)
                 : require(`../../../../assets/img/no-light.png`)
             }
           />
           <Text style={HomeScreenStyles.LightDisplaySectionLightExistTextStyle}>
-            {lightExist === 'light' ? "There's light" : "There's no light"}
+            {lightExist ? "There's light" : "There's no light"}
           </Text>
         </View>
         <View
