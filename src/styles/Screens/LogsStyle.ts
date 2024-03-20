@@ -29,6 +29,12 @@ export const LogsScreenStyle = StyleSheet.create({
     rowGap: 12,
     paddingHorizontal: 7,
   },
+  displayBoxContainerWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    height: '100%',
+  },
   boxStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -45,6 +51,5 @@ export const LogsScreenStyle = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     fontSize: 10,
     textAlign: 'center',
-    transform: [{translateY: 200}],
   },
 });

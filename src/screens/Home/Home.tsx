@@ -17,7 +17,6 @@ export default function HomeScreen({navigation}: any): JSX.Element {
     useState<IElectricalParameters>({voltage: 0, current: 0, power: 0});
 
   useEffect(() => {
-    console.log('Logs Loggers');
     (async function () {
       const fetchedLogs = await Logger.fetchLogs();
       fetchedLogs ? setDataLogs([...fetchedLogs]) : setDataLogs([]);

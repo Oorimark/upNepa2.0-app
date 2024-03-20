@@ -2,7 +2,7 @@ import HomeScreen from '../screens/Home/Home';
 import {useTheme} from 'react-native-paper';
 import LogsScreen from '../screens/Logs/Logs';
 import {BaseStyle} from '../styles/Global';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {pColor10, pColor30} from '../styles/Colors';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {screenOptionsHandler, tabScreenOptions} from './NavFunc/Func';
