@@ -21,7 +21,7 @@ export type IAppState = {
 
 export type ILog = {
   time: string;
-  timeDiff: number;
+  timeDiff: string;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<

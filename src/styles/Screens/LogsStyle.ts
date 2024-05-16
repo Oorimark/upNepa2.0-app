@@ -2,11 +2,14 @@ import {StyleSheet} from 'react-native';
 import {pColor10, pColor60, sColor60} from '../Colors';
 
 export const LogsScreenStyle = StyleSheet.create({
+  listContainer: {
+    backgroundColor: pColor60,
+    height: '100%',
+  },
   container: {
     paddingVertical: 30,
     paddingHorizontal: 9,
     rowGap: 30,
-    backgroundColor: pColor60,
     height: '100%',
   },
   headerContainer: {
@@ -24,16 +27,16 @@ export const LogsScreenStyle = StyleSheet.create({
     backgroundColor: pColor10,
     width: '100%',
     height: '90%',
-    paddingVertical: 30,
     borderRadius: 20,
-    rowGap: 12,
     paddingHorizontal: 7,
+    paddingVertical: 7,
   },
   displayBoxContainerWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'center',
     height: '100%',
+    rowGap: 12,
   },
   boxStyle: {
     flexDirection: 'row',

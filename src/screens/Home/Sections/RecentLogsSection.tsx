@@ -35,7 +35,7 @@ export default function RecentLogsSection(props: IProps): JSX.Element {
             </View>
             <Text
               style={HomeScreenStyles.RecentLogsSectionBoxDurationTextStyle}>
-              {log.timeDiff}hrs ago
+              {log.timeDiff} ago
             </Text>
           </View>
         ))}

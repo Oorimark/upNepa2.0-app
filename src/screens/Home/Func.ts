@@ -74,11 +74,11 @@ export const handleTimerAndLogUpdates = async (
   const lastTwoValues = voltageDataLogger.slice(-2);
   const [voltage1, voltage2] = lastTwoValues;
 
-  // checks if there's a change from no-light to light
+  // checks if there's a change in light status ie from no-light to light
   if (voltage1 === 0 && voltage2 > 0) {
     const startingTime = new Date();
     await Logger.log(startingTime);
-    setDataLogs([...dataLogs, Logger.createLog(startingTime)]);
+    setDataLogs([...dataLogs, Logger.timeDiffSorter(startingTime)]);
     setInitialTime(startingTime);
   }
 };

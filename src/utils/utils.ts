@@ -2,21 +2,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class Logger {
   static createLog(startingTime: Date) {
-    const time = formatTimeIn12HourFormat(startingTime);
-    return {time, timeDiff: 0};
+    return startingTime;
   }
 
   static async log(startingTime: Date) {
-    const createdLog = Logger.createLog(startingTime);
-    const getPrevItem = JSON.parse(
-      (await AsyncStorage.getItem('Logs')) as string,
-    );
+    const prevItem = JSON.parse((await AsyncStorage.getItem('Logs')) as string);
 
-    if (!getPrevItem) {
-      await AsyncStorage.setItem('Logs', JSON.stringify([createdLog]));
+    if (!prevItem) {
+      await AsyncStorage.setItem('Logs', JSON.stringify([startingTime]));
       return;
     }
-    const newItem = [...getPrevItem, createdLog];
+    const newItem = [...prevItem, startingTime];
     await AsyncStorage.setItem('Logs', JSON.stringify(newItem));
   }
 
@@ -29,6 +25,17 @@ export class Logger {
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60),
     );
     return {hours, minutes, seconds};
+  }
+
+  static timeDiffSorter(prevTime: Date) {
+    prevTime = new Date(prevTime);
+    let diff = '';
+    const {hours, minutes, seconds} = Logger.LastTimeSorter(prevTime);
+    if (hours) diff = hours + ' hrs';
+    else if (minutes) diff = minutes + ' min';
+    else if (seconds) diff = seconds + ' sec';
+    else diff = 0 + 'sec';
+    return {time: formatTimeIn12HourFormat(prevTime), timeDiff: diff};
   }
 
   static async fetchLogs() {

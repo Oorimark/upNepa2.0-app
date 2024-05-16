@@ -18,10 +18,16 @@ export default function HomeScreen({navigation}: any): JSX.Element {
 
   useEffect(() => {
     (async function () {
+      await Logger.log(new Date());
       const fetchedLogs = await Logger.fetchLogs();
-      fetchedLogs ? setDataLogs([...fetchedLogs]) : setDataLogs([]);
+      if (fetchedLogs) {
+        const logs = fetchedLogs.map((date: Date) =>
+          Logger.timeDiffSorter(date),
+        );
+        setDataLogs([...logs]);
+      } else setDataLogs([]);
     })();
-  }, [Logger]);
+  }, [Logger, retryConnection]);
 
   useEffect(() => {
     handleSocketsConnection(

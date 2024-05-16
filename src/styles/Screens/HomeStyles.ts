@@ -118,7 +118,7 @@ export const HomeScreenStyles = StyleSheet.create({
     paddingHorizontal: 27,
     alignItems: 'center',
     borderRadius: 12,
-    width: 170,
+    width: 160,
   },
   ParameterDisplayBoxLabel: {
     fontFamily: 'Montserrat-Medium',
