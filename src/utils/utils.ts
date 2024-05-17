@@ -19,19 +19,21 @@ export class Logger {
   static LastTimeSorter(prevTime: Date) {
     const currentTime = new Date();
     const timeDifference = currentTime.getTime() - prevTime.getTime();
+    const day = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
     const minutes = Math.floor(
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60),
     );
-    return {hours, minutes, seconds};
+    return {day, hours, minutes, seconds};
   }
 
   static timeDiffSorter(prevTime: Date) {
     prevTime = new Date(prevTime);
     let diff = '';
-    const {hours, minutes, seconds} = Logger.LastTimeSorter(prevTime);
-    if (hours) diff = hours + ' hrs';
+    const {day, hours, minutes, seconds} = Logger.LastTimeSorter(prevTime);
+    if (day) diff = day + ' day';
+    else if (hours) diff = hours + ' hrs';
     else if (minutes) diff = minutes + ' min';
     else if (seconds) diff = seconds + ' sec';
     else diff = 0 + 'sec';

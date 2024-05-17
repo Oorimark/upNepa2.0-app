@@ -18,7 +18,6 @@ export default function HomeScreen({navigation}: any): JSX.Element {
 
   useEffect(() => {
     (async function () {
-      await Logger.log(new Date());
       const fetchedLogs = await Logger.fetchLogs();
       if (fetchedLogs) {
         const logs = fetchedLogs.map((date: Date) =>
